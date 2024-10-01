@@ -3,7 +3,7 @@ const Gallery = {
     return {
       category: '',
       images: [
-        { index: 1, src: 'https://raw.githubusercontent.com/JSJL29/JSPictureStudio/refs/heads/main/img/IMG_4894.webp', category: 'Landscape' },
+        { index: 1, src: 'img/IMG_4894.webp', category: 'Landscape' },
         { index: 2, src: 'img/IMG_4895.webp', category: 'Landscape' },
         { index: 3, src: 'img/IMG_4896.webp', category: 'Landscape' },
         { index: 4, src: 'img/IMG_4897.webp', category: 'Landscape' },
