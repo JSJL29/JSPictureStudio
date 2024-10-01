@@ -45,7 +45,7 @@
         
                 <transition-group appear tag="ul" class="category-list">
                     <li v-for="image in filterByCategory" :key="image.index">
-                        <img :src="image.src" alt="">
+                        <img :src="image.src" loading="lazy">
                     </li>
                 </transition-group>
             </div>
