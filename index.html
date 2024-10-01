@@ -1,14 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUP260S June 2024 Test</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Picture Studio</title>
+    <link rel="stylesheet" href="style.css"> <!-- Lien vers le fichier CSS -->
 </head>
-
 <body>
-</body>
 
+    <div class="navbar" id="navbar">
+        <!-- Logo à gauche -->
+        <strong>JS PICTURE STUDIO</strong>
+
+        <!-- Menu de navigation -->
+        <ul>
+            <li><a href="#" class="nav-link" data-section="accueil">ACCUEIL</a></li>
+            <li><a href="#" class="nav-link" data-section="albums">ALBUMS</a></li>
+            <li><a href="#" class="nav-link" data-section="contact">CONTACT</a></li>
+            <li><a href="#" class="nav-link" data-section="droit-image">DROIT A L'IMAGE</a></li>
+        </ul>
+    </div>
+
+    <!-- Sections de contenu -->
+    <div id="content">
+        <div id="accueil" class="section active">
+            <h1>Bienvenue sur notre site !</h1>
+            <p>Portofolio personnel dans le cadre de partage de photo</p>
+        </div>
+
+
+        <div id="albums" class="section">
+            <div id="app">
+                <div class="category-nav">
+                    <label>
+                        <input type="radio" v-model="category" value=""> All
+                    </label>
+                    <label>
+                        <input type="radio" v-model="category" value="Landscape"> Landscape
+                    </label>
+                    <label>
+                        <input type="radio" v-model="category" value="Animal"> Animal
+                    </label>
+                </div>
+        
+                <transition-group appear tag="ul" class="category-list">
+                    <li v-for="image in filterByCategory" :key="image.index">
+                        <img :src="image.src" alt="">
+                    </li>
+                </transition-group>
+            </div>
+        </div>
+
+        <div id="contact" class="section">
+            <h1>Contact</h1>
+            <p>Contactez-nous ici.</p>
+        </div>
+
+        <div id="droit-image" class="section">
+            <h1>Conditions d'utilisation des images</h1>
+            <p>En utilisant les images présentes sur ce site, vous acceptez les conditions suivantes :</p>
+            <ol>
+                <li><strong>Droits d'auteur</strong> : Toutes les images sont protégées par des droits d'auteur. Leur utilisation sans autorisation explicite est interdite.</li>
+                <li><strong>Licence</strong> : Les images sont mises à disposition sous la licence <strong>Creative Commons Attribution-NonCommercial (CC BY-NC)</strong>. Cela signifie que vous pouvez les réutiliser à condition de :
+                    <ul>
+                        <li>Mentionner l'auteur et la source.</li>
+                        <li>Ne pas les utiliser à des fins commerciales.</li>
+                    </ul>
+                </li>
+                <li><strong>Modification</strong> : Les images ne peuvent pas être modifiées sans l'accord explicite de l'auteur.</li>
+                <li><strong>Crédit</strong> : Lors de la réutilisation des images, veuillez inclure un crédit visible, indiquant le nom de l'auteur et un lien vers le site web d'origine.</li>
+                <li><strong>Responsabilité</strong> : L'utilisation des images est à vos propres risques. Nous ne sommes pas responsables des dommages résultant de l'utilisation des images.</li>
+                <li><strong>Modifications des conditions</strong> : Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications prendront effet dès leur publication sur le site.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script.js"></script> 
+    <script src="vue.js"></script> 
+</body>
 </html>
