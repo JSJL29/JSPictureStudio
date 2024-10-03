@@ -99,6 +99,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
   
   /* Animation */
@@ -121,4 +122,80 @@
 .v-leave-to {
     opacity: 0;
     transform: translateY(50px);
+}
+
+ul.category-list {
+    list-style-type: none; /* This removes the bullets */
+    padding: 0; /* Optional: Removes padding for a cleaner look */
+}
+
+/* Enlève la puce du logo en utilisant display flex pour l'alignement */
+.navbar .logo {
+    text-decoration: none;  /* Supprime le soulignement */
+    color: inherit;         /* Prend la couleur du parent, ici par défaut noir */
+    font-weight: bold;      /* Garder le texte en gras */
+    font-size: 20px;        /* Ajustez la taille du texte si nécessaire */
+    display: flex;
+    align-items: center;
+    margin-left: 0;         /* Supprime le margin éventuel du logo */
+}
+
+/* Supprimer les marges et les puces pour tous les éléments <ul> */
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    padding-left: 0;        /* Supprime la marge interne à gauche */
+}
+
+.navbar ul li {
+    list-style-type: none;  /* Enlève la puce des éléments <li> */
+}
+
+.navbar ul li a {
+    text-decoration: none;  /* Enlève le soulignement */
+    color: black;           /* Mettre les liens en noir */
+    font-weight: bold;      /* Garder les liens en gras */
+}
+
+.navbar ul li a:hover {
+    color: #888;            /* Change la couleur lors du survol */
+}
+
+/* Modal styles */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    margin: auto;
+    display: block;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
