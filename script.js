@@ -34,7 +34,7 @@ function showSection(sectionId) {
 // Événement pour gérer les clics sur les liens de navigation
 links.forEach(link => {
     link.addEventListener("click", function(event) {
-        event.preventDefault(); // Empêche le comportement par défaut du lien
+        event.preventDefault();
         const sectionId = this.getAttribute("data-section");
         showSection(sectionId);
     });
