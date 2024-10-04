@@ -46,7 +46,25 @@ const Gallery = {
     closeModal() {
       this.isModalVisible = false;
       this.selectedImage = null;
-    }
+    },
+    downloadImage() {
+      // Remplacer l'extension .webp par .jpg
+      const jpgImage = this.selectedImage.replace(/\.webp$/, '.jpg');
+      
+      // Créer un élément d'ancrage temporaire
+      const link = document.createElement('a');
+      link.href = jpgImage; // Chemin vers l'image JPG
+      link.download = jpgImage.split('/').pop(); // Nom du fichier à télécharger
+      
+      // Ajouter le lien au DOM
+      document.body.appendChild(link);
+      
+      // Simuler le clic sur le lien pour lancer le téléchargement
+      link.click();
+      
+      // Retirer le lien du DOM
+      document.body.removeChild(link);
+  }
   }
 };
 
