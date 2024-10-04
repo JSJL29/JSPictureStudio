@@ -48,24 +48,25 @@ const Gallery = {
       this.selectedImage = null;
     },
     downloadImage() {
-      // Remplacer l'extension .webp par .jpg
+      // Remplacer l'extension .webp par .jpg et ajouter le chemin vers le dossier img/en_jpg
       const jpgImage = this.selectedImage.replace(/\.webp$/, '.jpg');
-      
+      const jpgImagePath = `img/en_jpg/${jpgImage.split('/').pop()}`; // Chemin vers l'image JPG dans le dossier spécifié
+  
       // Créer un élément d'ancrage temporaire
       const link = document.createElement('a');
-      link.href = jpgImage; // Chemin vers l'image JPG
+      link.href = jpgImagePath; // Chemin vers l'image JPG
       link.download = jpgImage.split('/').pop(); // Nom du fichier à télécharger
-      
+  
       // Ajouter le lien au DOM
       document.body.appendChild(link);
-      
+  
       // Simuler le clic sur le lien pour lancer le téléchargement
       link.click();
-      
+  
       // Retirer le lien du DOM
       document.body.removeChild(link);
   }
-  }
+}
 };
 
 Vue.createApp(Gallery).mount('#app1');
