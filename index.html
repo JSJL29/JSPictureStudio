@@ -21,7 +21,6 @@
     </div>
     
 
-
     <!-- Sections de contenu -->
     <div id="content">
         <div id="accueil" class="section active">
@@ -51,16 +50,18 @@
                 </transition-group> 
 
                 <!-- Modal for image preview -->
-                <div v-if="isModalVisible" class="modal" @click="closeModal">
-                    <span class="close" @click="closeModal">&times;</span>
-                    <img class="modal-content" :src="selectedImage" @click.stop>
-                </div>
-            </div>
-        </div>
+            <div v-if="isModalVisible" class="modal" @click="closeModal">
+                <span class="close" @click="closeModal">&times;</span>
+                <img class="modal-content" :src="selectedImage" @click.stop>
 
-        <div id="contact" class="section">
-            <h1>Contact</h1>
-            <p>Contactez-nous ici.</p>
+                <!-- Bouton de téléchargement -->
+                <div class="download-button">
+                    <button @click.stop.prevent="downloadImage">Télécharger</button>
+                </div>
+
+            </div>
+
+            </div>
         </div>
 
         <div id="soon" class="section">
