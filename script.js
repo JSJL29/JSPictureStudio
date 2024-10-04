@@ -3,18 +3,6 @@ const navbar = document.getElementById("navbar");
 const links = document.querySelectorAll(".nav-link");
 const sections = document.querySelectorAll(".section");
 
-// Obtenez la position initiale de la barre
-const sticky = navbar.offsetTop;
-
-// Fonction qui ajoute ou retire la classe "sticky" selon la position du scroll
-function stickyNavbar() {
-    if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky");
-    } else {
-        navbar.classList.remove("sticky");
-    }
-}
-
 // Ajoutez un événement de défilement à la fenêtre
 window.onscroll = function() {
     stickyNavbar();
