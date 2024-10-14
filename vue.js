@@ -38,7 +38,7 @@ const Gallery = {
       fetch('https://api.github.com/repos/JSJL29/JSPictureStudio/git/trees/main?recursive=1')
         .then(response => response.json())
         .then(data => {
-          const imgFiles = data.tree.filter(file => file.path.startsWith('img/') && (file.path.endsWith('.jpg') || file.path.endsWith('.jpeg') || file.path.endsWith('.png') || file.path.endsWith('.webp')));
+          const imgFiles = data.tree.filter(file => file.path.startsWith('img/') && (file.path.endsWith('.webp')));
 
           imgFiles.forEach(file => {
             const category = file.path.includes('Landscape') ? 'Landscape' : 'Animal';
