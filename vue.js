@@ -10,6 +10,7 @@ const Gallery = {
   computed: {
     filterByCategory() {
       if (this.category === '') return this.images;
+      console.log(this.images.filter(image => image.category === this.category));
       return this.images.filter(image => image.category === this.category);
     }
   },
@@ -24,7 +25,13 @@ const Gallery = {
     },
     downloadImage() {
       const jpgImage = this.selectedImage.replace(/\.webp$/, '.jpg');
-      const jpgImagePath = `img/en_jpg/${jpgImage.split('/').pop()}`;
+      const jpgImagePath = jpgImage.includes('Animal')
+        ? `img/Animal/en_jpg/${jpgImage.split('/').pop()}`
+        : jpgImage.includes('Landscape')
+        ? `img/Landscape/en_jpg/${jpgImage.split('/').pop()}`
+        : `img/en_jpg/${jpgImage.split('/').pop()}`;
+
+        console.log(jpgImagePath);
 
       const link = document.createElement('a');
       link.href = jpgImagePath;
@@ -38,7 +45,9 @@ const Gallery = {
       fetch('https://api.github.com/repos/JSJL29/JSPictureStudio/git/trees/main?recursive=1')
         .then(response => response.json())
         .then(data => {
-          const imgFiles = data.tree.filter(file => file.path.startsWith('img/') && (file.path.endsWith('.webp')));
+          const imgFiles = data.tree.filter(file => 
+            (file.path.startsWith('img/Animal') || file.path.startsWith('img/Landscape')) && file.path.endsWith('.webp')
+          );          
 
           imgFiles.forEach(file => {
             const category = file.path.includes('Landscape') ? 'Landscape' : 'Animal';
