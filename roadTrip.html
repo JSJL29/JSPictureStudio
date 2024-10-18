@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS temp Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar" id="navbar">
+        <!-- Logo à gauche, sans balise <li> pour éviter la puce -->
+        <a href="#" class="nav-link logo" data-section="accueil"><strong>JS PICTURE STUDIO</strong></a>
+    
+        <!-- Menu de navigation -->
+        <ul>
+            <li><a href="#" class="nav-link" data-section="autruche">FERME D'AUTRUCHE</a></li>
+            <li><a href="#" class="nav-link" data-section="addo">ADDO PARK</a></li>
+            <li><a href="#" class="nav-link" data-section="tsitsikamma">TSITSIKAMMA</a></li>
+            <li><a href="#" class="nav-link" data-section="random">RANDOM</a></li>
+        </ul>
+    </div>
+
+
+    <div id="content">
+        <div id="accueil" class="section active">
+            <h1>Bienvenue sur notre site !</h1>
+            <p>Portofolio personnel dans le cadre de partage de photo</p>
+
+            <a href="index.html">lien vers la gallery principale</a>
+        </div>
+
+
+        <div id="autruche" class="section">
+            <div id="app1"> 
+                <transition-group appear tag="ul" class="category-list">
+                    <li v-for="image in images" :key="image.index">
+                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
+                    </li>
+                </transition-group> 
+
+        <!-- Modal for image preview -->
+            <div v-if="isModalVisible" class="modal" @click="closeModal">
+            <span class="close" @click="closeModal">&times;</span>
+            <img class="modal-content" :src="selectedImage" @click.stop>
+
+        <!-- Bouton de téléchargement -->
+                <div class="download-button">
+                    <button @click.stop.prevent="downloadImage">Télécharger</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div id="addo" class="section">
+            <div id="app2"> 
+                <transition-group appear tag="ul" class="category-list">
+                    <li v-for="image in images" :key="image.index">
+                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
+                    </li>
+                </transition-group> 
+
+        <!-- Modal for image preview -->
+            <div v-if="isModalVisible" class="modal" @click="closeModal">
+            <span class="close" @click="closeModal">&times;</span>
+            <img class="modal-content" :src="selectedImage" @click.stop>
+
+        <!-- Bouton de téléchargement -->
+                <div class="download-button">
+                    <button @click.stop.prevent="downloadImage">Télécharger</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+    <div id="tsitsikamma" class="section">
+            <div id="app3"> 
+                <tcransition-group appear tag="ul" class="category-list">
+                    <li v-for="image in images" :key="image.index">
+                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
+                    </li>
+                </transition-group> 
+
+        <!-- Modal for image preview -->
+            <div v-if="isModalVisible" class="modal" @click="closeModal">
+            <span class="close" @click="closeModal">&times;</span>
+            <img class="modal-content" :src="selectedImage" @click.stop>
+
+        <!-- Bouton de téléchargement -->
+                <div class="download-button">
+                    <button @click.stop.prevent="downloadImage">Télécharger</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div id="random" class="section">
+            <div id="app4"> 
+                <transition-group appear tag="ul" class="category-list">
+                    <li v-for="image in images" :key="image.index">
+                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
+                    </li>
+                </transition-group> 
+
+        <!-- Modal for image preview -->
+            <div v-if="isModalVisible" class="modal" @click="closeModal">
+            <span class="close" @click="closeModal">&times;</span>
+            <img class="modal-content" :src="selectedImage" @click.stop>
+
+        <!-- Bouton de téléchargement -->
+                <div class="download-button">
+                    <button @click.stop.prevent="downloadImage">Télécharger</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue2.js"></script> 
+    <script src="script.js"></script>
+</body>
+</html>
