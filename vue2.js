@@ -21,7 +21,9 @@ const Gallery = {
     downloadImage() {
       // Remplace l'extension webp par l'extension personnalisée
       const newImage = this.selectedImage.replace(/\.webp$/, '.jpg');
-      const newImagePath = `${this.imagePathPrefix}/${newImage.split('/').pop()}`;
+      const newImagePath = `${this.imagePathPrefix}/en_jpg/${newImage.split('/').pop()}`;
+
+      console.log(newImagePath);
 
       const link = document.createElement('a');
       link.href = newImagePath;
