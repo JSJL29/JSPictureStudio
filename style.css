@@ -95,8 +95,10 @@
 /* Image list */
 .category-list {
     display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); /* Flexible grid layout */
+    gap: 10px; /* Spacing between images */
+    list-style: none;
+    padding: 0;
 }
 
 .category-list img {
