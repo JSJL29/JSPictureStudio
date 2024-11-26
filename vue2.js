@@ -94,6 +94,48 @@ document.querySelectorAll('.nav-link').forEach(link => {
           }).mount('#app4');
         }
         break;
+      case 'kruger':
+        if (!document.querySelector('#app5').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/Kruger'
+          }).mount('#app5');
+        }
+        break;
+      case 'reptileCenter':
+        if (!document.querySelector('#app6').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/ReptileCenter'
+          }).mount('#app6');
+        }
+        break;
+      case 'rehabCenter':
+        if (!document.querySelector('#app7').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/RehabCenter'
+          }).mount('#app7');
+        }
+        break;
+      case 'echoCaves':
+        if (!document.querySelector('#app8').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/EchoCaves'
+          }).mount('#app8');
+        }
+        break;
+      case 'bourkesLuck':
+        if (!document.querySelector('#app9').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/BourkesLuck'
+          }).mount('#app9');
+        }
+        break;
+      case 'harcelement':
+        if (!document.querySelector('#app10').__vue_app__) {
+          Vue.createApp(Gallery, {
+            imagePathPrefix: 'img/Krug/Harcelement'
+          }).mount('#app10');
+        }
+        break;
       default:
         console.log('Section inconnue.');
     }
