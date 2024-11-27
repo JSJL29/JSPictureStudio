@@ -1,190 +1,132 @@
-/* Style de la barre de navigation */
-.navbar {
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+  }
+  
+  /* Barre de navigation */
+  .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f5f5f5;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ccc;
-    width: 98%;
-    transition: background-color 0.3s ease;
-}
-
-/* Ajoutez une classe "sticky" lorsque l'utilisateur fait défiler la page */
-.sticky {
-    position: fixed;
+    background-color: #fff;
+    padding: 1rem 5%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333; /* Change la couleur de fond lors du défilement */
-    color: white; /* Change la couleur du texte lors du défilement */
     z-index: 1000;
-}
-
-/* Style du logo à gauche */
-.navbar .logo {
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo span {
-    font-size: 20px;
+  }
+  
+  .navbar .logo {
+    font-size: 1.5rem;
+    color: #333;
+    text-decoration: none;
     font-weight: bold;
-    margin-left: 10px;
-}
-
-/* Style des liens du menu */
-.navbar ul {
-    list-style-type: none;
+  }
+  
+  .navbar ul {
     display: flex;
-    gap: 20px;
-    padding-left: 0; /* Supprime la marge interne à gauche */
-}
-
-.navbar ul li {
-    list-style-type: none; /* Enlève la puce des éléments <li> */
-}
-
-.navbar ul li a {
-    text-decoration: none; /* Enlève le soulignement */
-    color: black; /* Mettre les liens en noir */
-    font-weight: bold; /* Garder les liens en gras */
-}
-
-.navbar ul li a:hover {
-    color: #888; /* Change la couleur lors du survol */
-}
-
-/* Lors du défilement, changez la couleur des liens */
-.sticky ul li a {
-    color: white;
-}
-
-.sticky ul li a:hover {
-    color: #ddd;
-}
-
-/* Sections */
-.section {
-    display: none;
-}
-
-.section.active {
-    display: block;
-}
-
-/* Category buttons */
-.category-nav {
-    text-align: center;
-    padding: 30px;
-}
-
-.category-nav label {
-    background: #0bd;
-    color: #fff;
-    padding: 5px 10px;
-    margin: 10px;
-    cursor: pointer;
-}
-
-.category-nav input[type="radio"] {
-    opacity: 0;
-    position: absolute;
-}
-
-/* Image list */
-.category-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); /* Flexible grid layout */
-    gap: 10px; /* Spacing between images */
     list-style: none;
-    padding: 0;
-}
-
-.category-list img {
+  }
+  
+  .navbar ul li {
+    margin-left: 1.5rem;
+  }
+  
+  .navbar ul li a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  /* Sections de contenu */
+  #content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .section {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: none;
+  }
+  
+  .section.active {
+    display: block;
+  }
+  
+  .section h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Galerie d'images */
+  .category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    list-style: none;
+  }
+  
+  .category-list img {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    cursor: pointer;
-}
-
-/* Animation */
-.v-enter-active, .v-leave-active {
-    transition-property: transform, opacity;
-    transition-duration: 0.3s;
-}
-
-.v-enter-from {
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.v-leave-to {
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-ul.category-list {
-    list-style-type: none; /* Removes the bullets */
-    padding: 0; /* Optional: Removes padding for a cleaner look */
-}
-
-/* Modal styles */
-.modal {
-    display: flex;
+    border-radius: 4px;
+  }
+  
+  /* Modal */
+  .modal {
     position: fixed;
-    z-index: 1000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.modal-content {
+    z-index: 1001;
+  }
+  
+  .modal-content {
     max-width: 90%;
     max-height: 90%;
-    margin: auto;
-    display: block;
-}
-
-.close {
+    object-fit: contain;
+  }
+  
+  .close {
     position: absolute;
-    top: 10px;
-    right: 20px;
-    color: white;
-    font-size: 35px;
-    font-weight: bold;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 30px;
     cursor: pointer;
-}
-
-.close:hover, .close:focus {
-    color: #bbb;
-    cursor: pointer;
-}
-
-
-/* Style du bouton de téléchargement dans la modal */
-.download-button {
+  }
+  
+  .download-button {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;
-}
-
-.download-button button {
-    background-color: #0bd;
+  }
+  
+  .download-button button {
+    background-color: #333;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-}
-
-.download-button button:hover {
-    background-color: #0a9;
-}
+  }
