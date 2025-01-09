@@ -80,10 +80,9 @@
             </div>
         </div>
 
-
-    <div id="rehabCenter" class="section">
+        <div id="rehabCenter" class="section">
             <div id="app7"> 
-                <tcransition-group appear tag="ul" class="category-list">
+                <transition-group appear tag="ul" class="category-list">
                     <li v-for="image in images" :key="image.index">
                         <img :src="image.src" loading="lazy" @click="showImage(image.src)">
                     </li>
