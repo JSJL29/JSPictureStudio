@@ -1,92 +1,117 @@
 const Gallery = {
   props: {
-      imagePathPrefix: String,
+    imagePathPrefix: String,
   },
   data() {
-      return {
-          images: [],
-          isModalVisible: false,
-          selectedImage: null,
-          selectedIndex: 0,
-      };
+    return {
+      images: [],
+      isModalVisible: false,
+      selectedImage: null,
+      selectedIndex: 0,
+      selectedImages: [],
+    };
   },
   methods: {
-      showImage(imageSrc, index) {
-          this.selectedImage = imageSrc;
-          this.selectedIndex = index;
-          this.isModalVisible = true;
-      },
-      closeModal() {
-          this.isModalVisible = false;
-          this.selectedImage = null;
-      },
-      downloadImage() {
-          const newImage = this.selectedImage.replace(/\.webp$/, '.jpg');
-          const newImagePath = `${this.imagePathPrefix}/en_jpg/${newImage.split('/').pop()}`;
-
-          const link = document.createElement('a');
-          link.href = newImagePath;
-          link.download = newImage.split('/').pop();
-
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-      },
-      fetchImagesFromGitHub() {
-          fetch('https://api.github.com/repos/JSJL29/JSPictureStudio/git/trees/main?recursive=1')
-            .then(response => response.json())
-            .then(data => {
-              const imgFiles = data.tree.filter(file => file.path.startsWith(this.imagePathPrefix) && file.path.endsWith('.webp'));
-              console.log(this.response);
-    
-              imgFiles.forEach(file => {
-                this.images.push({
-                  index: this.images.length + 1, // Assigner un index unique
-                  src: file.path, // Le chemin du fichier image
-                });
-              });
-            })
-            .catch(error => {
-              console.error('Erreur lors de la récupération des fichiers:', error);
+    showImage(imageSrc, index) {
+      this.selectedImage = imageSrc;
+      this.selectedIndex = index;
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+      this.selectedImage = null;
+    },
+    downloadImage() {
+      const newImage = this.selectedImage.replace(/\.webp$/, '.jpg');
+      const newImagePath = `${this.imagePathPrefix}/en_jpg/${newImage.split('/').pop()}`;
+      const link = document.createElement('a');
+      link.href = newImagePath;
+      link.download = newImage.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+    fetchImagesFromGitHub() {
+      fetch('https://api.github.com/repos/JSJL29/JSPictureStudio/git/trees/main?recursive=1')
+        .then(response => response.json())
+        .then(data => {
+          const imgFiles = data.tree.filter(file => file.path.startsWith(this.imagePathPrefix) && file.path.endsWith('.webp'));
+          imgFiles.forEach(file => {
+            this.images.push({
+              index: this.images.length + 1,
+              src: file.path,
             });
-        },
-      nextImage() {
-        if (this.selectedIndex < this.images.length - 1) {
-          this.selectedIndex++;
-          this.selectedImage = this.images[this.selectedIndex].src;
-        }
-      },
-      prevImage() {
-        if (this.selectedIndex > 0) {
-          this.selectedIndex--;
-          this.selectedImage = this.images[this.selectedIndex].src;
-        }
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des fichiers:', error);
+        });
+    },
+    nextImage() {
+      if (this.selectedIndex < this.images.length - 1) {
+        this.selectedIndex++;
+        this.selectedImage = this.images[this.selectedIndex].src;
       }
-      },
+    },
+    prevImage() {
+      if (this.selectedIndex > 0) {
+        this.selectedIndex--;
+        this.selectedImage = this.images[this.selectedIndex].src;
+      }
+    },
+    toggleSelectImage(imageSrc) {
+      const index = this.selectedImages.indexOf(imageSrc);
+      if (index > -1) {
+        this.selectedImages.splice(index, 1);
+      } else {
+        this.selectedImages.push(imageSrc);
+      }
+    },
+    isSelected(imageSrc) {
+      return this.selectedImages.includes(imageSrc);
+    },
+    downloadSelectedImages() {
+      this.selectedImages.forEach(imageSrc => {
+        const newImage = imageSrc.replace(/\.webp$/, '.jpg');
+        const newImagePath = `${this.imagePathPrefix}/en_jpg/${newImage.split('/').pop()}`;
+        const link = document.createElement('a');
+        link.href = newImagePath;
+        link.download = newImage.split('/').pop();
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+  },
   mounted() {
-      this.fetchImagesFromGitHub();
+    this.fetchImagesFromGitHub();
   },
   template: `
-      <transition-group appear tag="ul" class="category-list">
-          <li v-for="(image, index) in images" :key="image.index">
-              <img :src="image.src" :alt="image.alt" loading="lazy" @click="showImage(image.src, index)">
-          </li>
-      </transition-group>
-      <div v-if="isModalVisible" class="modal" @click="closeModal">
-          <span class="close" @click="closeModal">&times;</span>
-          <img class="modal-content" :src="selectedImage" @click.stop>
-          <div class="download-button">
-              <button @click.stop.prevent="downloadImage" aria-label="Télécharger l'image">Télécharger</button>
-          </div>
-          <button @click.stop.prevent="prevImage" class="nav-button prev-button"> < Précédent  </button>
-          <button @click.stop.prevent="nextImage" class="nav-button next-button">  Suivant > </button>
+    <transition-group appear tag="ul" class="category-list">
+      <li v-for="(image, index) in images" :key="image.index">
+        <img :src="image.src" :alt="image.alt" loading="lazy" @click="showImage(image.src, index)">
+        <input type="checkbox" :value="image.src" @change="toggleSelectImage(image.src)" :checked="isSelected(image.src)">
+      </li>
+    </transition-group>
+    <div v-if="isModalVisible" class="modal" @click="closeModal">
+      <span class="close" @click="closeModal">&times;</span>
+      <img class="modal-content" :src="selectedImage" @click.stop>
+      <div class="download-button">
+        <button @click.stop.prevent="downloadImage" aria-label="Télécharger l'image">Télécharger</button>
       </div>
+      <button @click.stop.prevent="prevImage" class="nav-button prev-button"> < Précédent  </button>
+      <button @click.stop.prevent="nextImage" class="nav-button next-button">  Suivant > </button>
+      <div class="download-selected" @click.stop>
+        <input type="checkbox" :value="selectedImage" @change.stop="toggleSelectImage(selectedImage)" :checked="isSelected(selectedImage)">
+        <button @click.stop="downloadSelectedImages">Télécharger les images sélectionnées</button>
+      </div>
+    </div>
   `,
 };
 
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', function (event) {
-    event.preventDefault(); // Empêche la navigation par défaut
+    event.preventDefault();
 
     const section = this.getAttribute('data-section');
     const appMappings = {
@@ -114,14 +139,10 @@ document.querySelectorAll('.nav-link').forEach(link => {
       return;
     }
 
-    // Vérifie si l'application Vue est déjà montée
     if (!targetElement.__vue_app__) {
-      console.log(`Montage de Vue pour la section "${section}" avec le préfixe "${mapping.prefix}"`);
       Vue.createApp(Gallery, {
         imagePathPrefix: mapping.prefix,
       }).mount(`#${mapping.id}`);
-    } else {
-      console.log(`L'application Vue est déjà montée pour la section "${section}".`);
     }
   });
 });
