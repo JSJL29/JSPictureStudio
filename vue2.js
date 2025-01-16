@@ -87,6 +87,7 @@ const Gallery = {
     this.fetchImagesFromGitHub();
   },
   template: `
+  <button @click.stop="downloadSelectedImages">Télécharger les images sélectionnées</button>
     <transition-group appear tag="ul" class="category-list">
       <li v-for="(image, index) in images" :key="image.index">
         <img :src="image.src" :alt="image.alt" loading="lazy" @click="showImage(image.src, index)">
@@ -103,7 +104,6 @@ const Gallery = {
       <button @click.stop.prevent="nextImage" class="nav-button next-button">  Suivant > </button>
       <div class="download-selected" @click.stop>
         <input type="checkbox" :value="selectedImage" @change.stop="toggleSelectImage(selectedImage)" :checked="isSelected(selectedImage)">
-        <button @click.stop="downloadSelectedImages">Télécharger les images sélectionnées</button>
       </div>
     </div>
   `,
