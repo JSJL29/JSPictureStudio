@@ -233,3 +233,29 @@ body {
   border-top: 2px solid white;
   border-right: 2px solid white;
 }
+
+/* Styles pour les checkboxes */
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '✔';
+  display: block;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+}
