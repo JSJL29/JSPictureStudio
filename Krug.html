@@ -28,141 +28,18 @@
         <div id="accueil" class="section active">
             <h1>Bienvenue sur notre site !</h1>
             <p>Portofolio personnel dans le cadre de partage de photo</p>
-
-            <a href="index.html">lien vers la gallery principale</a>
-
-            <br>
-
-            <a href="roadTrip.html">lien vers la gallery roadTrip </a>
+            <a href="index.html">Lien vers la galerie principale</a><br>
+            <a href="Krug.html">Lien vers la galerie Kruger</a>
         </div>
 
-
-        <div id="kruger" class="section">
-            <div id="app5"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-
-        <div id="reptileCenter" class="section">
-            <div id="app6"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div id="rehabCenter" class="section">
-            <div id="app7"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div id="echoCaves" class="section">
-            <div id="app8"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div id="bourkesLuck" class="section">
-            <div id="app9"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div id="harcelement" class="section">
-            <div id="app10"> 
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in images" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-        <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-            <span class="close" @click="closeModal">&times;</span>
-            <img class="modal-content" :src="selectedImage" @click.stop>
-
-        <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-            </div>
-            </div>
-        </div>
+        <!-- Gallery Sections -->
+        <div id="kruger" class="section"><div id="app5"></div></div>
+        <div id="reptileCenter" class="section"><div id="app6"></div></div>
+        <div id="rehabCenter" class="section"><div id="app7"></div></div>
+        <div id="echoCaves" class="section"><div id="app8"></div></div>
+        <div id="bourkesLuck" class="section"><div id="app9"></div></div>
+        <div id="harcelement" class="section"><div id="app10"></div></div>
+    </div>
 
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
