@@ -7,11 +7,13 @@ const Gallery = {
           images: [],
           isModalVisible: false,
           selectedImage: null,
+          selectedIndex: 0,
       };
   },
   methods: {
-      showImage(imageSrc) {
+      showImage(imageSrc, index) {
           this.selectedImage = imageSrc;
+          this.selectedIndex = index;
           this.isModalVisible = true;
       },
       closeModal() {
@@ -47,15 +49,27 @@ const Gallery = {
             .catch(error => {
               console.error('Erreur lors de la récupération des fichiers:', error);
             });
+        },
+      nextImage() {
+        if (this.selectedIndex < this.images.length - 1) {
+          this.selectedIndex++;
+          this.selectedImage = this.images[this.selectedIndex].src;
         }
+      },
+      prevImage() {
+        if (this.selectedIndex > 0) {
+          this.selectedIndex--;
+          this.selectedImage = this.images[this.selectedIndex].src;
+        }
+      }
       },
   mounted() {
       this.fetchImagesFromGitHub();
   },
   template: `
       <transition-group appear tag="ul" class="category-list">
-          <li v-for="image in images" :key="image.index">
-              <img :src="image.src" :alt="image.alt" loading="lazy" @click="showImage(image.src)">
+          <li v-for="(image, index) in images" :key="image.index">
+              <img :src="image.src" :alt="image.alt" loading="lazy" @click="showImage(image.src, index)">
           </li>
       </transition-group>
       <div v-if="isModalVisible" class="modal" @click="closeModal">
@@ -64,6 +78,8 @@ const Gallery = {
           <div class="download-button">
               <button @click.stop.prevent="downloadImage" aria-label="Télécharger l'image">Télécharger</button>
           </div>
+          <button @click.stop.prevent="prevImage" class="nav-button prev-button"> < Précédent  </button>
+          <button @click.stop.prevent="nextImage" class="nav-button next-button">  Suivant > </button>
       </div>
   `,
 };
