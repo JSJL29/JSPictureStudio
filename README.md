@@ -2,7 +2,7 @@
 
 ## Description
 
-**JSPictureStudio** est un projet de site web personnel mettant en avant le travail d'un photographe au style "goatesque". Ce dépôt contient le code et les ressources nécessaires pour créer un portfolio en ligne qui reflète une vision artistique unique.
+**JSPictureStudio** est un projet de site web personnel mettant en avant le travail d'un photographe. Ce dépôt contient le code et les ressources nécessaires pour créer un portfolio en ligne qui reflète une vision artistique unique.
 
 ## Fonctionnalités
 
