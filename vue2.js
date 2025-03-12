@@ -122,9 +122,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
       kruger: { id: 'app5', prefix: 'img/Krug/Kruger' },
       reptileCenter: { id: 'app6', prefix: 'img/Krug/ReptileCenter' },
       rehabCenter: { id: 'app7', prefix: 'img/Krug/RehabCenter' },
-      echoCaves: { id: 'app8', prefix: 'img/Krug/EchoCaves' },
-      bourkesLuck: { id: 'app9', prefix: 'img/Krug/BourkesLuck' },
-      harcelement: { id: 'app10', prefix: 'img/Krug/Harcelement' },
+      bourkesLuck: { id: 'app8', prefix: 'img/Krug/BourkesLuck' },
+      harcelement: { id: 'app9', prefix: 'img/Krug/Harcelement' },
     };
 
     const mapping = appMappings[section];
