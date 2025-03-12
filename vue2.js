@@ -123,7 +123,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
       reptileCenter: { id: 'app6', prefix: 'img/Krug/ReptileCenter' },
       rehabCenter: { id: 'app7', prefix: 'img/Krug/RehabCenter' },
       bourkesLuck: { id: 'app8', prefix: 'img/Krug/BourkesLuck' },
-      harcelement: { id: 'app9', prefix: 'img/Krug/Harcelement' },
     };
 
     const mapping = appMappings[section];
