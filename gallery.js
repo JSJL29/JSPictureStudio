@@ -25,23 +25,11 @@
     BourkesLuck: "Bourke’s Luck"
   };
 
-  const getCategory = (path) => {
-    const parts = path.split("/");
-    return parts[1] === "Animal" || parts[1] === "Landscape" ? parts[1] : parts[2];
-  };
-
-  const pagePhotos = manifest.filter((path) => {
-    if (page === "home") return path.startsWith("img/Animal/") || path.startsWith("img/Landscape/");
-    if (page === "roadtrip") return path.startsWith("img/roadTrip/");
-    return path.startsWith("img/Krug/");
-  });
-
-  const fileName = (path) => path.split("/").pop().replace(".webp", "");
-  const jpgPath = (path) => {
-    const parts = path.split("/");
-    const name = parts.pop().replace(/\.webp$/i, ".jpg");
-    return [...parts, "en_jpg", name].join("/");
-  };
+  const getCategory = (photo) => photo.category;
+  const pagePhotos = manifest.filter((photo) => photo.collection === page);
+  const fileName = (photo) => photo.name;
+  const thumbnail = (photo) => photo.sources["640"];
+  const preview = (photo) => photo.sources["2560"];
 
   const setupMenu = () => {
     const toggle = document.querySelector(".menu-toggle");
@@ -79,7 +67,7 @@
         <div class="lightbox-actions">
           <button class="lightbox-action lightbox-select" type="button">+ Sélection</button>
           <button class="lightbox-action lightbox-share" type="button">Partager</button>
-          <a class="lightbox-action lightbox-download" download>Télécharger</a>
+          <button class="lightbox-action lightbox-download" type="button">Télécharger</button>
         </div>
       </div>`;
     document.body.appendChild(lightbox);
@@ -89,6 +77,9 @@
     lightbox.querySelector(".lightbox-next").addEventListener("click", () => moveLightbox(1));
     lightbox.querySelector(".lightbox-select").addEventListener("click", () => toggleSelection(activePhotos[lightboxIndex]));
     lightbox.querySelector(".lightbox-share").addEventListener("click", sharePhoto);
+    lightbox.querySelector(".lightbox-download").addEventListener("click", (event) => {
+      downloadPhoto(activePhotos[lightboxIndex], event.currentTarget);
+    });
     lightbox.querySelector(".lightbox-stage").addEventListener("click", (event) => {
       if (event.target.classList.contains("lightbox-stage")) closeLightbox();
     });
@@ -101,8 +92,8 @@
     }, { passive: true });
   };
 
-  const openLightbox = (path) => {
-    const index = activePhotos.indexOf(path);
+  const openLightbox = (photo) => {
+    const index = activePhotos.findIndex((item) => item.id === photo.id);
     if (index < 0) return;
     lightboxIndex = index;
     document.querySelector(".lightbox").classList.add("open");
@@ -126,30 +117,29 @@
   };
 
   const updateLightbox = () => {
-    const path = activePhotos[lightboxIndex];
+    const photo = activePhotos[lightboxIndex];
     const lightbox = document.querySelector(".lightbox");
-    if (!path || !lightbox) return;
-    const category = getCategory(path);
+    if (!photo || !lightbox) return;
+    const category = getCategory(photo);
     const image = lightbox.querySelector(".lightbox-image");
-    image.src = path;
-    image.alt = `Photographie ${fileName(path)}, ${labels[category] || category}`;
-    lightbox.querySelector(".lightbox-title").textContent = `${labels[category] || category} · ${fileName(path)}`;
+    image.src = preview(photo);
+    image.width = Math.min(2560, photo.width);
+    image.height = Math.round(image.width * photo.height / photo.width);
+    image.alt = `Photographie ${fileName(photo)}, ${labels[category] || category}`;
+    lightbox.querySelector(".lightbox-title").textContent = `${labels[category] || category} · ${fileName(photo)}`;
     lightbox.querySelector(".lightbox-count").textContent = `${String(lightboxIndex + 1).padStart(2, "0")} / ${String(activePhotos.length).padStart(2, "0")}`;
-    const download = lightbox.querySelector(".lightbox-download");
-    download.href = jpgPath(path);
-    download.download = `${fileName(path)}.jpg`;
     const selectButton = lightbox.querySelector(".lightbox-select");
-    const isSelected = selected.has(path);
+    const isSelected = selected.has(photo.id);
     selectButton.classList.toggle("active", isSelected);
     selectButton.textContent = isSelected ? "✓ Sélectionnée" : "+ Sélection";
-    history.replaceState(null, "", `#photo=${encodeURIComponent(path)}`);
+    history.replaceState(null, "", `#photo=${encodeURIComponent(photo.id)}`);
   };
 
   const sharePhoto = async () => {
-    const path = activePhotos[lightboxIndex];
+    const photo = activePhotos[lightboxIndex];
     const url = new URL(location.href);
-    url.hash = `photo=${encodeURIComponent(path)}`;
-    const data = { title: "JSPictureStudio", text: `Photographie ${fileName(path)}`, url: url.href };
+    url.hash = `photo=${encodeURIComponent(photo.id)}`;
+    const data = { title: "JSPictureStudio", text: `Photographie ${fileName(photo)}`, url: url.href };
     const button = document.querySelector(".lightbox-share");
     try {
       if (navigator.share) {
@@ -164,9 +154,9 @@
     }
   };
 
-  const toggleSelection = (path) => {
-    if (selected.has(path)) selected.delete(path);
-    else selected.add(path);
+  const toggleSelection = (photo) => {
+    if (selected.has(photo.id)) selected.delete(photo.id);
+    else selected.add(photo.id);
     updateSelectionUI();
     if (document.querySelector(".lightbox.open")) updateLightbox();
   };
@@ -175,24 +165,55 @@
     document.querySelectorAll("[data-selection-count]").forEach((node) => { node.textContent = selected.size; });
     document.querySelectorAll("[data-download-selected]").forEach((button) => { button.disabled = selected.size === 0; });
     document.querySelectorAll(".select-photo").forEach((button) => {
-      const pressed = selected.has(button.dataset.path);
+      const pressed = selected.has(button.dataset.id);
       button.setAttribute("aria-pressed", String(pressed));
       button.textContent = pressed ? "✓" : "+";
       button.setAttribute("aria-label", pressed ? "Retirer de la sélection" : "Ajouter à la sélection");
     });
   };
 
-  const downloadSelected = () => {
-    [...selected].forEach((path, index) => {
-      window.setTimeout(() => {
-        const link = document.createElement("a");
-        link.href = jpgPath(path);
-        link.download = `${fileName(path)}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      }, index * 180);
-    });
+  const downloadPhoto = async (photo, button) => {
+    if (!photo) return;
+    const previousLabel = button?.textContent;
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Préparation…";
+    }
+    try {
+      const response = await fetch(photo.download);
+      if (!response.ok) throw new Error(`Download failed: ${response.status}`);
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = `${fileName(photo)}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1500);
+    } catch (error) {
+      console.warn("Direct download unavailable, opening the original.", error);
+      window.open(photo.download, "_blank", "noopener");
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.textContent = previousLabel;
+      }
+    }
+  };
+
+  const downloadSelected = async (event) => {
+    const button = event.currentTarget;
+    const photos = [...selected]
+      .map((id) => manifest.find((photo) => photo.id === id))
+      .filter(Boolean);
+    button.disabled = true;
+    for (let index = 0; index < photos.length; index += 1) {
+      button.childNodes[0].textContent = `Téléchargement ${index + 1}/${photos.length} `;
+      await downloadPhoto(photos[index]);
+    }
+    button.childNodes[0].textContent = "Télécharger la sélection ";
+    button.disabled = false;
   };
 
   const renderGallery = () => {
@@ -200,23 +221,38 @@
     const grid = document.querySelector("#gallery-grid");
     const status = document.querySelector("#gallery-status");
     const loadMore = document.querySelector("#load-more");
-    activePhotos = pagePhotos.filter((path) => activeFilter === "all" || getCategory(path) === activeFilter);
+    activePhotos = pagePhotos.filter((photo) => activeFilter === "all" || getCategory(photo) === activeFilter);
     const visible = activePhotos.slice(0, visibleCount);
     const fragment = document.createDocumentFragment();
 
-    visible.forEach((path, index) => {
-      const category = getCategory(path);
+    visible.forEach((photo, index) => {
+      const category = getCategory(photo);
+      const layoutPosition = (index % 10) + 1;
+      const isWide = [1, 5, 7].includes(layoutPosition);
+      const responsiveSizes = isWide
+        ? "(max-width: 900px) 100vw, 50vw"
+        : "(max-width: 900px) 50vw, 25vw";
       const item = document.createElement("article");
       item.className = "gallery-item";
+      item.style.backgroundColor = photo.color;
       item.style.animationDelay = `${Math.min(index, 15) * 25}ms`;
       item.innerHTML = `
-        <button class="gallery-image-button" type="button" aria-label="Ouvrir ${fileName(path)}">
-          <img src="${path}" alt="Photographie ${fileName(path)}, ${labels[category] || category}" loading="lazy" decoding="async">
+        <button class="gallery-image-button" type="button" aria-label="Ouvrir ${fileName(photo)}">
+          <img
+            src="${thumbnail(photo)}"
+            srcset="${photo.sources["640"]} 640w, ${photo.sources["1280"]} 1280w"
+            sizes="${responsiveSizes}"
+            width="${photo.width}"
+            height="${photo.height}"
+            alt="Photographie ${fileName(photo)}, ${labels[category] || category}"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="${index < 4 ? "auto" : "low"}">
         </button>
-        <span class="photo-meta"><span>${labels[category] || category}</span><span>${fileName(path)}</span></span>
-        <button class="select-photo" type="button" data-path="${path}" aria-pressed="false" aria-label="Ajouter à la sélection">+</button>`;
-      item.querySelector(".gallery-image-button").addEventListener("click", () => openLightbox(path));
-      item.querySelector(".select-photo").addEventListener("click", () => toggleSelection(path));
+        <span class="photo-meta"><span>${labels[category] || category}</span><span>${fileName(photo)}</span></span>
+        <button class="select-photo" type="button" data-id="${photo.id}" aria-pressed="false" aria-label="Ajouter à la sélection">+</button>`;
+      item.querySelector(".gallery-image-button").addEventListener("click", () => openLightbox(photo));
+      item.querySelector(".select-photo").addEventListener("click", () => toggleSelection(photo));
       fragment.appendChild(item);
     });
 
@@ -243,12 +279,13 @@
     document.querySelectorAll("[data-download-selected]").forEach((button) => button.addEventListener("click", downloadSelected));
     renderGallery();
 
-    const sharedPath = location.hash.startsWith("#photo=") ? decodeURIComponent(location.hash.slice(7)) : "";
-    if (sharedPath && pagePhotos.includes(sharedPath)) {
-      const category = getCategory(sharedPath);
+    const sharedId = location.hash.startsWith("#photo=") ? decodeURIComponent(location.hash.slice(7)) : "";
+    const sharedPhoto = pagePhotos.find((photo) => photo.id === sharedId);
+    if (sharedPhoto) {
+      const category = getCategory(sharedPhoto);
       const filter = [...document.querySelectorAll("[data-filter]")].find((button) => button.dataset.filter === category);
-      if (filter && !activePhotos.includes(sharedPath)) filter.click();
-      openLightbox(sharedPath);
+      if (filter && !activePhotos.some((photo) => photo.id === sharedId)) filter.click();
+      openLightbox(sharedPhoto);
     }
   };
 
@@ -264,4 +301,7 @@
   setupMenu();
   setupLightbox();
   setupGallery();
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
+  }
 })();

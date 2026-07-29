@@ -6,7 +6,9 @@
   <meta name="description" content="JSPictureStudio — récits photographiques, paysages et vie sauvage en Afrique du Sud.">
   <meta name="theme-color" content="#12130f">
   <title>JSPictureStudio — Photographie & voyages</title>
-  <link rel="preload" href="img/Landscape/IMG_5084.webp" as="image" type="image/webp">
+  <link rel="preload" href="img/generated/Landscape/IMG_5084-1280.webp" as="image" type="image/webp"
+        imagesrcset="img/generated/Landscape/IMG_5084-1280.webp 1280w, img/generated/Landscape/IMG_5084-2560.webp 2560w"
+        imagesizes="(max-width: 900px) 100vw, 63vw">
   <link rel="stylesheet" href="style.css">
   <script src="photo-manifest.js" defer></script>
   <script src="gallery.js" defer></script>
@@ -32,7 +34,13 @@
 
   <main>
     <section class="hero hero-home" aria-labelledby="hero-title">
-      <img class="hero-image" src="img/Landscape/IMG_5084.webp" alt="Reliefs montagneux d'Afrique du Sud sous un ciel bleu" fetchpriority="high">
+      <img class="hero-image"
+           src="img/generated/Landscape/IMG_5084-1280.webp"
+           srcset="img/generated/Landscape/IMG_5084-1280.webp 1280w, img/generated/Landscape/IMG_5084-2560.webp 2560w"
+           sizes="(max-width: 900px) 100vw, 63vw"
+           width="2560" height="1707"
+           alt="Reliefs montagneux d'Afrique du Sud sous un ciel bleu"
+           fetchpriority="high" decoding="async">
       <div class="hero-shade"></div>
       <div class="hero-content">
         <p class="eyebrow">Portfolio photographique</p>
@@ -64,13 +72,19 @@
       </div>
       <div class="collection-grid">
         <a class="collection-card collection-card-large" href="roadTrip.html">
-          <img src="img/roadTrip/AddoPark/IMG_6682.webp" alt="" loading="lazy">
+          <img src="img/generated/roadTrip/AddoPark/IMG_6682-640.webp"
+               srcset="img/generated/roadTrip/AddoPark/IMG_6682-640.webp 640w, img/generated/roadTrip/AddoPark/IMG_6682-1280.webp 1280w"
+               sizes="(max-width: 900px) 100vw, 65vw"
+               width="1280" height="853" alt="" loading="lazy" decoding="async">
           <span class="card-overlay"></span>
           <span class="card-number">01</span>
           <span class="card-copy"><small>Garden Route</small><strong>Road trip</strong><em>Découvrir la collection →</em></span>
         </a>
         <a class="collection-card" href="Krug.html">
-          <img src="img/Krug/ReptileCenter/IMG_0729.webp" alt="" loading="lazy">
+          <img src="img/generated/Krug/ReptileCenter/IMG_0729-640.webp"
+               srcset="img/generated/Krug/ReptileCenter/IMG_0729-640.webp 640w, img/generated/Krug/ReptileCenter/IMG_0729-1280.webp 1280w"
+               sizes="(max-width: 900px) 100vw, 35vw"
+               width="1280" height="853" alt="" loading="lazy" decoding="async">
           <span class="card-overlay"></span>
           <span class="card-number">02</span>
           <span class="card-copy"><small>Réserves & sanctuaires</small><strong>Kruger</strong><em>Découvrir la collection →</em></span>
@@ -105,7 +119,10 @@
     </section>
 
     <section class="closing" id="contact">
-      <img src="img/Animal/IMG_5295.webp" alt="" loading="lazy">
+      <img src="img/generated/Animal/IMG_5295-640.webp"
+           srcset="img/generated/Animal/IMG_5295-640.webp 640w, img/generated/Animal/IMG_5295-1280.webp 1280w"
+           sizes="(max-width: 900px) 100vw, 55vw"
+           width="1280" height="853" alt="" loading="lazy" decoding="async">
       <div class="closing-copy">
         <p class="section-kicker">Rester curieux</p>
         <h2>Le voyage continue.</h2>

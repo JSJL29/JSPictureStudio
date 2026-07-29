@@ -372,6 +372,8 @@ button { font: inherit; }
   grid-row: span 4;
   overflow: hidden;
   background: var(--paper-deep);
+  content-visibility: auto;
+  contain-intrinsic-size: 320px 300px;
   animation: reveal .5s ease both;
 }
 .gallery-item:nth-child(10n + 1),

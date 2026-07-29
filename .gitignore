@@ -1,0 +1,5 @@
+# Full-resolution downloads live on the dedicated `originals` branch.
+img/**/en_jpg/
+
+# Local tooling output.
+Toolbox/__pycache__/
