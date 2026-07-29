@@ -1,45 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS temp Studio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kruger et sanctuaires animaliers d'Afrique du Sud en photographies.">
+  <meta name="theme-color" content="#12130f">
+  <title>Kruger — JSPictureStudio</title>
+  <link rel="preload" href="img/Krug/Kruger/IMG_0101.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="style.css">
+  <script src="photo-manifest.js" defer></script>
+  <script src="gallery.js" defer></script>
 </head>
-<body>
+<body data-page="kruger">
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html"><span class="brand-mark">JS</span><span>Picture Studio</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span class="sr-only">Ouvrir le menu</span></button>
+    <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a><a href="#galerie">Galerie</a><a href="roadTrip.html">Road trip</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero hero-collection hero-kruger">
+      <img class="hero-image" src="img/Krug/Kruger/IMG_0101.webp" alt="Antilopes dans le paysage du parc Kruger" fetchpriority="high">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <a class="back-link" href="index.html">← Retour au studio</a>
+        <p class="eyebrow">Carnet 02 · Mpumalanga</p>
+        <h1>Kruger<br>& beyond.</h1>
+        <p class="hero-copy">La vie sauvage du parc Kruger, des centres de conservation et les reliefs spectaculaires de Bourke’s Luck.</p>
+        <a class="button button-light" href="#galerie">Voir les 161 photos <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="hero-index" aria-hidden="true">02 <span></span> 161 images</p>
+    </section>
 
-    <div class="navbar" id="navbar">
-        <!-- Logo à gauche, sans balise <li> pour éviter la puce -->
-        <a href="#" class="nav-link logo" data-section="accueil"><strong>JS PICTURE STUDIO</strong></a>
-    
-        <!-- Menu de navigation -->
-        <ul>
-            <li><a href="#" class="nav-link" data-section="kruger">KRUGER</a></li>
-            <li><a href="#" class="nav-link" data-section="reptileCenter">REPTILE CENTER</a></li>
-            <li><a href="#" class="nav-link" data-section="rehabCenter">REHAB CENTER</a></li>
-            <li><a href="#" class="nav-link" data-section="bourkesLuck">BOURKE'S LUCK</a></li>
-        </ul>
-    </div>
-
-
-    <div id="content">
-        <div id="accueil" class="section active">
-            <h1>Bienvenue sur notre site !</h1>
-            <p>Portofolio personnel dans le cadre de partage de photo</p>
-            <a href="index.html">Lien vers la galerie principale</a><br>
-            <a href="Krug.html">Lien vers la galerie Kruger</a>
+    <section class="gallery-section collection-gallery" id="galerie" data-gallery-scope="kruger">
+      <div class="section-shell">
+        <div class="section-heading gallery-heading">
+          <div><p class="section-kicker">Quatre regards</p><h2>La collection</h2></div>
+          <p id="gallery-status" class="gallery-status" aria-live="polite">Chargement de la collection…</p>
         </div>
-
-        <!-- Gallery Sections -->
-        <div id="kruger" class="section"><div id="app5"></div></div>
-        <div id="reptileCenter" class="section"><div id="app6"></div></div>
-        <div id="rehabCenter" class="section"><div id="app7"></div></div>
-        <div id="bourkesLuck" class="section"><div id="app8"></div></div>
-    </div>
-
-    </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="vue2.js"></script> 
-    <script src="script.js"></script>
+        <div class="gallery-toolbar">
+          <div class="filter-list" role="group" aria-label="Filtrer les lieux">
+            <button class="filter-button active" type="button" data-filter="all">Tout</button>
+            <button class="filter-button" type="button" data-filter="Kruger">Parc Kruger</button>
+            <button class="filter-button" type="button" data-filter="ReptileCenter">Reptile Center</button>
+            <button class="filter-button" type="button" data-filter="RehabCenter">Rehab Center</button>
+            <button class="filter-button" type="button" data-filter="BourkesLuck">Bourke’s Luck</button>
+          </div>
+          <button class="selection-button" type="button" data-download-selected disabled>Télécharger la sélection <span data-selection-count>0</span></button>
+        </div>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="load-more-wrap"><button class="button button-dark" type="button" id="load-more" hidden>Afficher plus</button></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">JS</span><span>Picture Studio</span></a>
+    <a href="roadTrip.html">Revoir le Road trip →</a>
+    <p>© <span data-year></span> JSPictureStudio</p>
+  </footer>
 </body>
 </html>

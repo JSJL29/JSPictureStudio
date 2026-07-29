@@ -1,28 +1,37 @@
 # JSPictureStudio
 
-## Description
-
-**JSPictureStudio** est un projet de site web personnel mettant en avant le travail d'un photographe. Ce dépôt contient le code et les ressources nécessaires pour créer un portfolio en ligne qui reflète une vision artistique unique.
+Portfolio photographique consacré aux voyages et à la vie sauvage en Afrique du Sud.
 
 ## Fonctionnalités
 
-- **Portfolio photographique :** Présente les œuvres du photographe dans un format visuellement attrayant.
-- **Interface web :** Accessible via des navigateurs pour partager les photographies avec un large public.
-- **Usage de .webp :** Format de fichier beaucoup plus léger pour une navigation plus agréable.
-- **ToolBox :** Notebook avec les fonctions utilisé pour convertir toute les photos en .webp et autre outils utilisé.
-- **Usage de l'API Github :** Pour récupérer tout les chemins d'accès des photos et simplifier le code javascript.
+- galerie responsive de 390 photographies WebP ;
+- filtres par thème, lieu et étape du voyage ;
+- aperçu plein écran avec navigation au clavier et au swipe ;
+- liens partageables vers chaque photographie ;
+- sélection et téléchargement d’une ou plusieurs images en JPG ;
+- chargement progressif par lots de 24 images ;
+- interface accessible et compatible mobile ;
+- aucune dépendance JavaScript externe ni appel à l’API GitHub au chargement.
 
-## Installation
+## Structure
 
-Pour configurer et exécuter le projet en local :
+- `index.html` : accueil et sélection Animaux / Paysages ;
+- `roadTrip.html` : Ferme d’autruches, Addo Park, Tsitsikamma et Sur la route ;
+- `Krug.html` : Parc Kruger, Reptile Center, Rehab Center et Bourke’s Luck ;
+- `gallery.js` : galerie, filtres, lightbox, partage et téléchargements ;
+- `photo-manifest.js` : index local léger des fichiers WebP ;
+- `style.css` : système visuel et responsive.
 
-1. Clonez le dépôt :
- ``` git clone https://github.com/JSJL29/JSPictureStudio.git ```
-2. Accédez au répertoire du projet :
-``` cd JSPictureStudio ```
-3. Ouvrez le projet dans votre éditeur de code ou IDE préféré.
+## Lancer en local
 
-## Utilisation
+Les pages peuvent être servies avec n’importe quel serveur statique :
 
-- Ouvrez le site dans votre navigateur pour explorer le portfolio.
-- Personnalisez le code si vous souhaitez adapter le design ou le contenu à vos besoins.
+```bash
+python -m http.server 8000
+```
+
+Puis ouvrir `http://localhost:8000`.
+
+## Ajouter des photographies
+
+Ajouter la version WebP dans le dossier de collection et la version JPG téléchargeable dans son sous-dossier `en_jpg`, puis régénérer `photo-manifest.js` à partir des chemins WebP.

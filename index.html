@@ -1,88 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Picture Studio</title>
-    <link rel="stylesheet" href="style.css"> <!-- Lien vers le fichier CSS -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JSPictureStudio — récits photographiques, paysages et vie sauvage en Afrique du Sud.">
+  <meta name="theme-color" content="#12130f">
+  <title>JSPictureStudio — Photographie & voyages</title>
+  <link rel="preload" href="img/Landscape/IMG_5293.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="style.css">
+  <script src="photo-manifest.js" defer></script>
+  <script src="gallery.js" defer></script>
 </head>
-<body>
+<body data-page="home">
+  <header class="site-header" id="top">
+    <a class="brand" href="index.html" aria-label="JSPictureStudio, accueil">
+      <span class="brand-mark">JS</span>
+      <span>Picture Studio</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
+      <a href="#galerie">Galerie</a>
+      <a href="roadTrip.html">Road trip</a>
+      <a href="Krug.html">Kruger</a>
+      <a href="#a-propos">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-    <div class="navbar" id="navbar">
-        <!-- Logo à gauche, sans balise <li> pour éviter la puce -->
-        <a href="#" class="nav-link logo" data-section="accueil"><strong>JS PICTURE STUDIO</strong></a>
-    
-        <!-- Menu de navigation -->
-        <ul>
-            <li><a href="#" class="nav-link" data-section="AfriqueDuSud">AFRIQUE DU SUD</a></li>
-            <li><a href="#" class="nav-link" data-section="soon">SOON ...</a></li>
-            <li><a href="#" class="nav-link" data-section="contact">CONTACT</a></li>
-        </ul>
-    </div>
-    
+  <main>
+    <section class="hero hero-home" aria-labelledby="hero-title">
+      <img class="hero-image" src="img/Landscape/IMG_5293.webp" alt="Silhouettes d'arbres sur un ciel rouge" fetchpriority="high">
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Photographie · Afrique du Sud</p>
+        <h1 id="hero-title">Des images qui<br>gardent la trace.</h1>
+        <p class="hero-copy">Paysages, rencontres et instants sauvages — une collection personnelle pensée pour être explorée en grand.</p>
+        <a class="button button-light" href="#galerie">Explorer la collection <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="hero-index" aria-hidden="true">01 <span></span> ZA</p>
+    </section>
 
-    <!-- Sections de contenu -->
-    <div id="content">
-        <div id="accueil" class="section active">
-            <h1>Bienvenue sur notre site !</h1>
-            <p>Portofolio personnel dans le cadre de partage de photo</p>
-
-            <a href="roadTrip.html">Lien vers la gallery roadTrip </a>
-
-            <br>
-
-            <a href="Krug.html">Lien vers la gallery Kruger </a>
+    <section class="intro section-shell" id="a-propos">
+      <p class="section-kicker">Le studio</p>
+      <div class="intro-grid">
+        <h2>Un carnet visuel,<br>sans frontières.</h2>
+        <div>
+          <p>JSPictureStudio rassemble des fragments de voyage et de vie sauvage. Chaque image est disponible en aperçu haute définition et en téléchargement.</p>
+          <p class="muted">390 photographies · 10 collections · Afrique du Sud</p>
         </div>
+      </div>
+    </section>
 
-
-        <div id="AfriqueDuSud" class="section">
-            <div id="app1"> 
-                <div class="category-nav">
-                    <label>
-                        <input type="radio" v-model="category" value=""> All
-                    </label>
-                    <label>
-                        <input type="radio" v-model="category" value="Landscape"> Landscape
-                    </label>
-                    <label>
-                        <input type="radio" v-model="category" value="Animal"> Animal
-                    </label>
-                </div>
-        
-                <transition-group appear tag="ul" class="category-list">
-                    <li v-for="image in filterByCategory" :key="image.index">
-                        <img :src="image.src" loading="lazy" @click="showImage(image.src)">
-                    </li>
-                </transition-group> 
-
-                <!-- Modal for image preview -->
-            <div v-if="isModalVisible" class="modal" @click="closeModal">
-                <span class="close" @click="closeModal">&times;</span>
-                <img class="modal-content" :src="selectedImage" @click.stop>
-
-                <!-- Bouton de téléchargement -->
-                <div class="download-button">
-                    <button @click.stop.prevent="downloadImage">Télécharger</button>
-                </div>
-
-            </div>
-
-            </div>
+    <section class="collections section-shell" aria-labelledby="collections-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Carnets de voyage</p>
+          <h2 id="collections-title">Explorer par histoire</h2>
         </div>
+        <p>Deux itinéraires, dix étapes et autant de façons de voir le territoire.</p>
+      </div>
+      <div class="collection-grid">
+        <a class="collection-card collection-card-large" href="roadTrip.html">
+          <img src="img/roadTrip/Tsitsikamma/IMG_7104.webp" alt="" loading="lazy">
+          <span class="card-overlay"></span>
+          <span class="card-number">01</span>
+          <span class="card-copy"><small>Garden Route</small><strong>Road trip</strong><em>Découvrir la collection →</em></span>
+        </a>
+        <a class="collection-card" href="Krug.html">
+          <img src="img/Krug/Kruger/IMG_0101.webp" alt="" loading="lazy">
+          <span class="card-overlay"></span>
+          <span class="card-number">02</span>
+          <span class="card-copy"><small>Réserves & sanctuaires</small><strong>Kruger</strong><em>Découvrir la collection →</em></span>
+        </a>
+      </div>
+    </section>
 
-        <div id="soon" class="section">
-            <p>Un jour ce sera rempli</p>
+    <section class="gallery-section" id="galerie" data-gallery-scope="home">
+      <div class="section-shell">
+        <div class="section-heading gallery-heading">
+          <div>
+            <p class="section-kicker">Sélection du studio</p>
+            <h2>Toutes les images</h2>
+          </div>
+          <p id="gallery-status" class="gallery-status" aria-live="polite">Chargement de la collection…</p>
         </div>
-
-        <div id="contact" class="section">
-            <h1>Contact</h1>
-            <p>Contactez-nous ici.</p>
+        <div class="gallery-toolbar">
+          <div class="filter-list" role="group" aria-label="Filtrer les photos">
+            <button class="filter-button active" type="button" data-filter="all">Tout</button>
+            <button class="filter-button" type="button" data-filter="Landscape">Paysages</button>
+            <button class="filter-button" type="button" data-filter="Animal">Animaux</button>
+          </div>
+          <button class="selection-button" type="button" data-download-selected disabled>
+            Télécharger la sélection <span data-selection-count>0</span>
+          </button>
         </div>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="load-more-wrap">
+        <button class="button button-dark" type="button" id="load-more" hidden>Afficher plus</button>
+      </div>
+    </section>
 
-    </div>
+    <section class="closing" id="contact">
+      <img src="img/Animal/IMG_5295.webp" alt="" loading="lazy">
+      <div class="closing-copy">
+        <p class="section-kicker">Rester curieux</p>
+        <h2>Le voyage continue.</h2>
+        <p>De nouvelles images rejoindront bientôt la collection.</p>
+        <a href="https://github.com/JSJL29" rel="me">Suivre le studio sur GitHub →</a>
+      </div>
+    </section>
+  </main>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="script.js"></script> 
-    <script src="vue.js"></script> 
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">JS</span><span>Picture Studio</span></a>
+    <p>Photographies personnelles · Afrique du Sud</p>
+    <p>© <span data-year></span> JSPictureStudio</p>
+  </footer>
 </body>
 </html>
