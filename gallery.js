@@ -298,6 +298,12 @@
   });
 
   document.querySelectorAll("[data-year]").forEach((node) => { node.textContent = new Date().getFullYear(); });
+  document.querySelectorAll("[data-photo-count]").forEach((node) => {
+    const collection = node.dataset.photoCount;
+    node.textContent = collection === "all"
+      ? manifest.length
+      : manifest.filter((photo) => photo.collection === collection).length;
+  });
   setupMenu();
   setupLightbox();
   setupGallery();

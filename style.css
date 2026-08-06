@@ -205,7 +205,8 @@ button { font: inherit; }
   letter-spacing: .16em;
   text-transform: uppercase;
 }
-.hero-index span { width: 52px; height: 1px; background: currentColor; }
+.hero-index .hero-divider { width: 52px; height: 1px; background: currentColor; }
+.button b { font-weight: inherit; }
 .back-link {
   position: absolute;
   top: 130px;

@@ -3,3 +3,6 @@ img/**/en_jpg/
 
 # Local tooling output.
 Toolbox/__pycache__/
+
+# Drop zone for photos waiting to be imported.
+imports/

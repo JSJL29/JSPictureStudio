@@ -81,6 +81,8 @@ self.addEventListener("fetch", (event) => {
 
   if (url.pathname.includes("/img/generated/")) {
     event.respondWith(cacheFirst(request));
+  } else if (url.pathname.endsWith("/photo-manifest.js")) {
+    event.respondWith(networkFirst(request));
   } else if (request.mode === "navigate") {
     event.respondWith(networkFirst(request));
   } else {
